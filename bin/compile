@@ -34,6 +34,7 @@ elif test -f $build/.godir
 then name=$(cat $build/.godir)
 else
     echo >&2 " !     A .godir is required. For instructions:"
+    echo >&2 " !     A .godir is required. For instructions:"
     echo >&2 " !     http://mmcgrana.github.io/2012/09/getting-started-with-go-on-heroku"
     exit 1
 fi
@@ -61,29 +62,6 @@ fi
 GOROOT=$cache/go-$ver/go export GOROOT
 GOPATH=$build/.heroku/g export GOPATH
 PATH=$GOROOT/bin:$PATH
-
-
-if ! (test -d $build/Godeps || (which hg >/dev/null && which bzr >/dev/null))
-then
-    echo
-    echo "       Tired of waiting for bzr and hg?"
-    echo "       Try godep save -copy"
-    echo "       See https://github.com/kr/godep for more info."
-    echo
-
-    echo -n "       Installing Virtualenv..."
-    virtualenv --python $python --distribute --never-download --prompt='(venv) ' $venv > /dev/null 2>&1
-    . $venv/bin/activate > /dev/null 2>&1
-    echo " done"
-
-    echo -n "       Installing Mercurial..."
-    pip install mercurial > /dev/null 2>&1
-    echo " done"
-
-    echo -n "       Installing Bazaar..."
-    pip install bzr > /dev/null 2>&1
-    echo " done"
-fi
 
 p=$GOPATH/src/$name
 mkdir -p $p
