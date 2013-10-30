@@ -91,17 +91,10 @@ cp -R $build/* $p
 
 unset GIT_DIR # unset git dir or it will mess with goinstall
 cd $p
-if test -e $build/Godeps
-then
-    echo "-----> Running: godep go install -tags heroku ./..."
-    godep go install -tags heroku ./...
-else
-    echo "-----> Running: go get -tags heroku ./..."
-    go get -tags heroku ./...
-fi
-
+echo "-----> Running: go run make.go"
+go run make.go 
 mkdir -p $build/bin
-mv $GOPATH/bin/* $build/bin
+mv bin/* $build/bin
 rm -rf $build/.heroku
 
 mkdir -p $build/.profile.d
